@@ -1,26 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { NavMenu } from "components/NavMenu";
+import { Container } from "reactstrap";
+import { Route, Routes } from "react-router-dom";
+import { FetchOrders } from "components/Orders";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <NavMenu />
+      <Container tag="main">
+        <Routes>
+          <Route path="/" element={<FetchOrders />} />
+        </Routes>
+      </Container>
     </div>
   );
 }
+
 
 export default App;
