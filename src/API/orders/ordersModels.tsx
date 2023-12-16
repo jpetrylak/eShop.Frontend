@@ -1,4 +1,4 @@
-﻿import { EntityBase } from "../common/entity";
+﻿import { EntityBase } from "../common";
 
 export enum EOrderStatus {
   Created = 0,

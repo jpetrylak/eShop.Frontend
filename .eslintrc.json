@@ -35,6 +35,7 @@
     "react"
   ],
   "rules": {
+    "@typescript-eslint/ban-ts-comment": "off",
     "semi": [
       "error",
       "always"

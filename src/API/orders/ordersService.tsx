@@ -1,11 +1,10 @@
-﻿/* eslint-disable @typescript-eslint/no-unused-vars */
-import httpService from "../httpService";
+﻿import httpService from "../httpService";
 import { OrderModel } from "./ordersModels";
 import { AxiosResponse } from "axios";
-import { PagedResult, PagingData } from "../common/pagingModels";
+import { PagedResult, IPagingData } from "../common";
 
-export const OrdersService = {
-  getOrders: async (pagingData: PagingData): Promise<PagedResult<OrderModel>> => {
+const OrdersService = {
+  getOrders: async (pagingData: IPagingData): Promise<PagedResult<OrderModel>> => {
     const pagingQueryString = toQueryString(pagingData);
 
     const response: AxiosResponse<PagedResult<OrderModel>> = await httpService.get<
@@ -27,9 +26,7 @@ const toQueryString = (obj: any): string => {
   return str.join("&");
 };
 
-export default {
-  OrdersService
-};
+export default OrdersService;
 
 // const getOrder = async params => {
 //
