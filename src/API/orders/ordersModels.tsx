@@ -6,11 +6,16 @@ export enum EOrderStatus {
   Shipped = 2
 }
 
-export interface OrderModel extends EntityBase {
+export interface IOrderModel extends EntityBase {
   userEmail: string;
   status: EOrderStatus;
   grandTotalValue: number;
   shippingAddress?: string;
   shippingDateTime?: Date;
   paymentDateTime?: Date;
+}
+
+export interface IOrderCreate {
+  userEmail: string;
+  shippingAddress?: string;
 }
