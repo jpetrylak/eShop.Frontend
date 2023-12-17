@@ -3,7 +3,7 @@ import "./App.css";
 import { NavMenu } from "components/NavMenu";
 import { Container } from "reactstrap";
 import { Route, Routes } from "react-router-dom";
-import { FetchOrders } from "components/Orders";
+import { Orders } from "../components/orders/Orders";
 
 function App() {
   return (
@@ -11,12 +11,11 @@ function App() {
       <NavMenu />
       <Container tag="main">
         <Routes>
-          <Route path="/" element={<FetchOrders />} />
+          <Route path="/" element={<Orders />} />
         </Routes>
       </Container>
     </div>
   );
 }
-
 
 export default App;
