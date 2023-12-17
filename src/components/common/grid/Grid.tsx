@@ -54,18 +54,16 @@ export const Grid = <T extends Record<string, any>>({
     if (!React.isValidElement(child)) return <></>;
 
     const { fieldName, format, editCallback, deleteCallback } = child.props;
-    let fieldValue: any;
+    // @ts-ignore
+    let fieldValue = item[fieldName];
 
     if (editCallback || deleteCallback) {
       fieldValue = (
         <ActionsCell dataItem={{ id: itemId }} editCallback={editCallback} deleteCallback={deleteCallback} />
       );
     } else if (format && fieldValue) {
-      // @ts-ignore
-      fieldValue = moment(item[fieldName]).format(format);
-    } else {
-      // @ts-ignore
-      fieldValue = item[fieldName];
+      fieldValue = moment(fieldValue).format(format);
+      console.log("fieldValue: ", fieldValue);
     }
 
     return <td key={fieldName}>{fieldValue}</td>;
