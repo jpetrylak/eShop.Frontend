@@ -4,16 +4,21 @@ import { NavMenu } from "components/NavMenu";
 import { Container } from "reactstrap";
 import { Route, Routes } from "react-router-dom";
 import { Orders } from "../components/orders/Orders";
+import { AlertPopup, AlertProvider } from "../components/common";
 
 function App() {
   return (
     <div>
-      <NavMenu />
-      <Container tag="main">
-        <Routes>
-          <Route path="/" element={<Orders />} />
-        </Routes>
-      </Container>
+      <AlertProvider>
+        <AlertPopup />
+        <NavMenu />
+        <Container tag="main">
+          <Routes>
+            <Route path="/" element={<Orders />} />
+          </Routes>
+        </Container>
+      </AlertProvider>
+      ,
     </div>
   );
 }
