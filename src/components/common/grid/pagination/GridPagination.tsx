@@ -1,4 +1,6 @@
 ﻿/* eslint-disable @typescript-eslint/no-empty-function */
+import { IPaging } from "API/common";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import {
   Col,
   DropdownItem,
@@ -9,15 +11,14 @@ import {
   PaginationLink,
   Row
 } from "reactstrap";
-import React, { Dispatch, SetStateAction, useState } from "react";
+
 import * as S from "./styled";
-import { IPagingData } from "API/common";
 
 type GridPaginationProps = {
   totalPages: number;
   currentPage: number;
-  pagingState: IPagingData;
-  setPagingState: Dispatch<SetStateAction<IPagingData>>;
+  pagingState: IPaging;
+  setPagingState: Dispatch<SetStateAction<IPaging>>;
 };
 
 const defaultProps: GridPaginationProps = {
@@ -39,7 +40,7 @@ export const GridPagination = ({
   pagingState,
   setPagingState
 }: GridPaginationProps = defaultProps) => {
-  const [pageSize, setPageSize] = useState(pagingState.currentPage);
+  const [pageSize, setPageSize] = useState(pagingState.resultsPerPage);
 
   const onPageClicked = (pageNumber: number) => {
     setPagingState({ ...pagingState, currentPage: pageNumber });
@@ -47,14 +48,10 @@ export const GridPagination = ({
 
   const onPageSizeDropdownChanged = (pageSize: number) => {
     setPagingState({ ...pagingState, resultsPerPage: pageSize });
-  };
-
-  const onPageSizeDropdownChangedLocal = (pageSize: number) => {
-    onPageSizeDropdownChanged(pageSize);
     setPageSize(pageSize);
   };
 
-  const renderPaginationItems = () => {
+  const renderPagination = () => {
     const paginationItems = [];
     for (let i = 1; i <= totalPages; i++) {
       paginationItems.push(
@@ -66,11 +63,11 @@ export const GridPagination = ({
     return paginationItems;
   };
 
-  const renderPageSizesItems = () => {
+  const renderPageSizesDropdownMenu = () => {
     const pageSizesItems: any[] = [];
     pagingState.pageSizes.map(pageSize => {
       pageSizesItems.push(
-        <DropdownItem key={pageSize} onClick={() => onPageSizeDropdownChangedLocal(pageSize)}>
+        <DropdownItem key={pageSize} onClick={() => onPageSizeDropdownChanged(pageSize)}>
           {pageSize}
         </DropdownItem>
       );
@@ -82,7 +79,7 @@ export const GridPagination = ({
     <>
       <Row>
         <Col className={""}>
-          <Pagination>{renderPaginationItems()}</Pagination>
+          <Pagination>{renderPagination()}</Pagination>
         </Col>
 
         <Col className={"col-auto"}>
@@ -93,7 +90,7 @@ export const GridPagination = ({
               {pageSize}
             </DropdownToggle>
 
-            <DropdownMenu>{renderPageSizesItems()}</DropdownMenu>
+            <DropdownMenu>{renderPageSizesDropdownMenu()}</DropdownMenu>
           </S.UncontrolledDropdown>
         </Col>
       </Row>
