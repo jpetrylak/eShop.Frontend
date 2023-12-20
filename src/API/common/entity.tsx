@@ -1,5 +1,5 @@
-﻿interface EntityBase {
+﻿interface IEntityBase {
   id: number;
 }
 
-export default EntityBase;
+export default IEntityBase;

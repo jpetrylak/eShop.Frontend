@@ -1,8 +1,10 @@
 ﻿/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import qs from "qs";
+
 import { ESHOP_API_URL } from "constants/app";
 import { TIMEOUT } from "constants/codeStatus";
+
 import { ProblemsResponse } from "./common";
 
 const defaultHttpServiceConfig = {
@@ -27,7 +29,6 @@ const responseSuccessInterceptorCb = (response: any) => response;
 const responseErrorInterceptorCb = (error: any) => {
   if (isProblemsResponse(error)) {
     const problems = error.response.data as ProblemsResponse;
-    console.log("problems: ", problems);
 
     return Promise.reject(problems);
   }

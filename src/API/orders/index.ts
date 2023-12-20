@@ -1,2 +1,2 @@
-﻿export { default as OrdersService } from "./ordersService";
-export * from "./ordersModels";
+﻿export { default as ordersApiClient } from "./ordersApiClient";
+export * from "./models";

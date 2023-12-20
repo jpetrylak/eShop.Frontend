@@ -1,4 +1,4 @@
-﻿export interface IPagingData {
+﻿export interface IPaging {
   currentPage: number;
   resultsPerPage: number;
   orderBy?: string;
@@ -6,7 +6,11 @@
   pageSizes: number[];
 }
 
-export type PagedResult<T extends Record<string, any>> = {
+export interface IPagingWithPageSizes extends IPaging {
+  pageSizes: number[];
+}
+
+export interface IPagedResult<T extends Record<string, any>> {
   currentPage: number;
   resultsPerPage: number;
   totalPages: number;
@@ -14,4 +18,4 @@ export type PagedResult<T extends Record<string, any>> = {
   items: T[];
   isEmpty: boolean;
   isNotEmpty: boolean;
-};
+}
