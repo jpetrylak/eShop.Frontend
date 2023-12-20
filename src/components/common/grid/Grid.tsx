@@ -1,18 +1,18 @@
-﻿import React, { Dispatch, ReactElement, SetStateAction } from "react";
+﻿import moment from "moment";
+import "./Grid.css";
 import { Table } from "reactstrap";
-import moment from "moment";
-import { IPagingData, PagedResult } from "API/common";
+import { IPagedResult, IPaging } from "API/common";
+import React, { Dispatch, ReactElement, SetStateAction } from "react";
 import Column, { ColumnProps } from "./Column";
 import { GridPagination } from "./pagination/GridPagination";
 import { ActionsCell } from "./cells/ActionsCell";
-import "./Grid.css";
 
 type GridProps<T extends Record<string, any>> = {
   children: ReactElement[];
   loading: boolean;
-  pagedDataState: PagedResult<T>;
-  pagingState: IPagingData;
-  setPagingState: Dispatch<SetStateAction<IPagingData>>;
+  pagedDataState: IPagedResult<T>;
+  pagingState: IPaging;
+  setPagingState: Dispatch<SetStateAction<IPaging>>;
 };
 
 const defaultProps: GridProps<any> = {
@@ -63,7 +63,6 @@ export const Grid = <T extends Record<string, any>>({
       );
     } else if (format && fieldValue) {
       fieldValue = moment(fieldValue).format(format);
-      console.log("fieldValue: ", fieldValue);
     }
 
     return <td key={fieldName}>{fieldValue}</td>;

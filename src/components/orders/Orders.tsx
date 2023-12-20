@@ -1,11 +1,12 @@
-﻿import React, { useEffect, useState } from "react";
-import { PagedResult, IPagingData } from "API/common";
-import { IOrderModel, OrdersService } from "API/orders";
+﻿import { OrderForm } from "./OrderForm";
 import { Grid } from "../common/grid";
+import { IPagedResult, IPaging, IPagingWithPageSizes } from "API/common";
+import { IOrderModel, ordersApiClient } from "API/orders";
+import React, { useEffect, useState } from "react";
 import { Button } from "reactstrap";
-import { OrderForm } from "./OrderForm";
+import "./Order.css";
 
-const pagingInitialState: IPagingData = {
+const pagingInitialState: IPagingWithPageSizes = {
   currentPage: 1,
   resultsPerPage: 5,
   orderBy: "id",
@@ -13,7 +14,7 @@ const pagingInitialState: IPagingData = {
   pageSizes: [5, 10, 20, 50]
 };
 
-const pagedResultInitialState: PagedResult<IOrderModel> = {
+const pagedResultInitialState: IPagedResult<IOrderModel> = {
   currentPage: 0,
   resultsPerPage: 0,
   isEmpty: true,
@@ -25,8 +26,8 @@ const pagedResultInitialState: PagedResult<IOrderModel> = {
 
 const Orders = () => {
   const [loading, setLoading] = useState<boolean>(true);
-  const [pagingState, setPagingState] = useState<IPagingData>(pagingInitialState);
-  const [pagedDataState, setPagedDataState] = useState<PagedResult<IOrderModel>>(pagedResultInitialState);
+  const [pagingState, setPagingState] = useState<IPaging>(pagingInitialState);
+  const [pagedDataState, setPagedDataState] = useState<IPagedResult<IOrderModel>>(pagedResultInitialState);
   const [orderFormModalOpened, setOrderFormModalOpened] = useState<boolean>(false);
 
   const editCallback = (id: any) => {
@@ -39,8 +40,10 @@ const Orders = () => {
 
   useEffect(() => {
     const populateOrders = async () => {
-      const pagedData = await OrdersService.getOrdersAsync(pagingState);
-      setPagedDataState(pagedData);
+      const apiResponse = await ordersApiClient.getPagedOrdersAsync(pagingState);
+
+      // @ts-ignore
+      setPagedDataState(apiResponse.data);
       setLoading(false);
     };
 
