@@ -1,6 +1,4 @@
-﻿import { EndpointsCollection } from "../common";
-
-export const OrdersEndpoints: EndpointsCollection = {
+﻿export const OrdersEndpoints = {
   getPaged: {
     path: "api/orders",
     method: "GET",

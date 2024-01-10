@@ -10,9 +10,9 @@ export interface IOrderModel extends IEntityBase {
   userEmail: string;
   status: EOrderStatus;
   grandTotalValue: number;
-  shippingAddress?: string;
-  shippingDateTime?: Date;
-  paymentDateTime?: Date;
+  shippingAddress: string;
+  shippingDateTime?: Date | null;
+  paymentDateTime?: Date | null;
 }
 
 export interface IOrderPosition {

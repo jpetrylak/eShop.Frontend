@@ -6,9 +6,3 @@ export type Endpoint = {
   successfulHttpCodes: number[];
   problemsHttpCodes: number[];
 };
-
-export type EndpointsCollection = {
-  getPaged: Endpoint;
-  getDetails: Endpoint;
-  create: Endpoint;
-};

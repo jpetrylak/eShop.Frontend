@@ -3,7 +3,6 @@
   resultsPerPage: number;
   orderBy?: string;
   sortOrder?: string;
-  pageSizes: number[];
 }
 
 export interface IPagingWithPageSizes extends IPaging {
