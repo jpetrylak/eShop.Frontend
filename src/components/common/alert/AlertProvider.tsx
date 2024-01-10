@@ -5,7 +5,6 @@ const initialState: AlertContextProps = {
   text: "",
   color: "",
   visible: false,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   onDismiss: () => {}
 };
 
@@ -21,9 +20,7 @@ type AlertContextProps = {
 
 const AlertContext = createContext({
   ...initialState,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   setAlert: (text: AlertText, color: AlertColor = "") => {},
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   onDismiss: () => {}
 });
 
