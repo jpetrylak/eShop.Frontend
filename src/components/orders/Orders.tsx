@@ -1,10 +1,11 @@
-﻿import { OrderForm } from "./OrderForm";
+﻿import { OrderCreateModal } from "./OrderCreateModal";
 import { Grid } from "../common/grid";
 import { IPagedResult, IPaging, IPagingWithPageSizes } from "API/common";
 import { IOrderModel, ordersApiClient } from "API/orders";
 import React, { useEffect, useState } from "react";
 import { Button } from "reactstrap";
 import "./Order.css";
+import { OrderEditModal } from "./OrderEditModal";
 
 const pagingInitialState: IPagingWithPageSizes = {
   currentPage: 1,
@@ -26,20 +27,23 @@ const pagedResultInitialState: IPagedResult<IOrderModel> = {
 
 const Orders = () => {
   const [loading, setLoading] = useState<boolean>(true);
-  const [pagingState, setPagingState] = useState<IPaging>(pagingInitialState);
+  const [pagingState, setPagingState] = useState<IPagingWithPageSizes>(pagingInitialState);
   const [pagedDataState, setPagedDataState] = useState<IPagedResult<IOrderModel>>(pagedResultInitialState);
   const [orderFormModalOpened, setOrderFormModalOpened] = useState<boolean>(false);
+  const [orderEditModalOpened, setOrderEditModalOpened] = useState<boolean>(false);
+  const [editingOrderId, setEditingOrderId] = useState<number>(0);
 
-  const editCallback = (id: any) => {
-    console.log("edit: ", id);
+  const createOrderModalClicked = () => {
+    setOrderFormModalOpened(true);
   };
 
-  function createOrderModalClicked() {
-    setOrderFormModalOpened(true);
-  }
+  const editCallback = (orderId: number) => {
+    setEditingOrderId(orderId);
+    setOrderEditModalOpened(true);
+  };
 
   useEffect(() => {
-    const populateOrders = async () => {
+    const populateOrdersAsync = async () => {
       const apiResponse = await ordersApiClient.getPagedOrdersAsync(pagingState);
 
       // @ts-ignore
@@ -47,7 +51,7 @@ const Orders = () => {
       setLoading(false);
     };
 
-    populateOrders();
+    populateOrdersAsync();
   }, [pagingState]);
 
   const renderOrdersTable = () => {
@@ -56,7 +60,7 @@ const Orders = () => {
         <Grid.Column fieldName="id" title="Id" />
         <Grid.Column fieldName="userEmail" title="User e-mail" />
         <Grid.Column fieldName="status" title="Status" />
-        <Grid.Column fieldName="grandTotalValue" title="Grand total" />
+        <Grid.Column fieldName="grandTotalValue" title="Value" />
         <Grid.Column fieldName="shippingAddress" title="Shipping address" />
         <Grid.Column fieldName="shippingDateTime" title="Shipping date" format="yyyy-MM-DD HH:mm" />
         <Grid.Column fieldName="paymentDateTime" title="Payment date" format="yyyy-MM-DD HH:mm" />
@@ -81,7 +85,15 @@ const Orders = () => {
         Create
       </Button>
 
-      <OrderForm openModal={orderFormModalOpened} setOpenModal={setOrderFormModalOpened} />
+      <OrderCreateModal openModal={orderFormModalOpened} setOpenModal={setOrderFormModalOpened} />
+
+      {orderEditModalOpened && (
+        <OrderEditModal
+          orderId={editingOrderId}
+          openModal={orderEditModalOpened}
+          setOpenModal={setOrderEditModalOpened}
+        />
+      )}
 
       {contents}
     </div>

@@ -1,5 +1,4 @@
-﻿/* eslint-disable @typescript-eslint/no-empty-function */
-import { IPaging } from "API/common";
+﻿import { IPagingWithPageSizes } from "API/common";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import {
   Col,
@@ -17,8 +16,8 @@ import * as S from "./styled";
 type GridPaginationProps = {
   totalPages: number;
   currentPage: number;
-  pagingState: IPaging;
-  setPagingState: Dispatch<SetStateAction<IPaging>>;
+  pagingState: IPagingWithPageSizes;
+  setPagingState: Dispatch<SetStateAction<IPagingWithPageSizes>>;
 };
 
 const defaultProps: GridPaginationProps = {

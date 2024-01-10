@@ -12,9 +12,7 @@ const defaultProps: ActionsCellProps = {
   dataItem: {
     id: 0
   },
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   editCallback: (key: number) => {},
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   deleteCallback: (key: number) => {}
 };
 
